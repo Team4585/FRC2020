@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copym_right (c) 2017-2018 FIRST. All m_rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.biblioteca.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Compressor;
@@ -15,23 +17,15 @@ import frc.robot.RobotConstants;
 import frc.robot.biblioteca.*;
 import frc.robot.biblioteca.subsystem.*;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
-  HuskyTalon rightMaster;
-  HuskyTalon leftMaster;
-  //HuskyTalon largeIntake;
-  //HuskyTalon smallIntake;
-  HuskyVictor rightSlave;
-  HuskyVictor leftSlave;
+  HuskyTalon m_rightMaster;
+  HuskyTalon m_leftMaster;
+  HuskyVictor m_rightSlave;
+  HuskyVictor m_leftSlave;
   HuskyJoystick driveControl;
   LimeLightCamera m_limeLight;
   Drive m_drive;
+  BasicPID m_pid;
   double m_P = 0.001;
   double m_I = 0.001;
   double m_D = 0.001;
@@ -41,19 +35,23 @@ public class Robot extends TimedRobot {
     driveControl = new HuskyJoystick(RobotConstants.joystickNumber);
     driveControl.setDeadZone(RobotConstants.joystickDeadZone);
     //Motors
-    rightMaster = new HuskyTalon(RobotConstants.rightMasterPort);
-    leftMaster = new HuskyTalon(RobotConstants.leftMasterPort);
-    rightSlave = new HuskyVictor(RobotConstants.rightSlavePort);
-    leftSlave = new HuskyVictor(RobotConstants.leftSlavePort);
-    //largeIntake = new HuskyTalon(RobotConstants.largeIntakePort);
-    //smallIntake = new HuskyTalon(RobotConstants.largeIntakePort);
+    m_rightMaster = new HuskyTalon(RobotConstants.rightMasterPort);
+    m_leftMaster = new HuskyTalon(RobotConstants.leftMasterPort);
+    m_rightSlave = new HuskyVictor(RobotConstants.rightSlavePort);
+    m_leftSlave = new HuskyVictor(RobotConstants.leftSlavePort);
 
-    rightMaster.setInverted(RobotConstants.rightInvert);
-    leftMaster.setInverted(RobotConstants.leftInvert);
-    leftSlave.follow(leftMaster);
-    rightSlave.follow(rightMaster);
+    m_rightMaster.setInverted(RobotConstants.rightInvert);
+    m_leftMaster.setInverted(RobotConstants.leftInvert);
+    m_leftSlave.follow(m_leftMaster);
+    m_rightSlave.follow(m_rightMaster);
     m_limeLight = new LimeLightCamera();
-    m_drive = new SimpleTankDrive(leftMaster, leftSlave, rightMaster, rightSlave);
+    m_drive = new SimpleTankDrive(m_leftMaster, m_leftSlave, m_rightMaster, m_rightSlave);
+    m_pid = new BasicPID();
+    m_pid.setP(m_P);
+    m_pid.setI(m_I);
+    m_pid.setD(m_D);
+    m_pid.setMinOutput(-0.5);
+    m_pid.setMinOutput(0.5);
     //largeIntake.setInverted(RobotConstants.largeInvert);
     //smallIntake.setInverted(RobotConstants.smallInvert);
   }
@@ -66,16 +64,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     RoboBaseClass.gatherInfoAll();
-    double output = 0;
-    double m_error;
-    double m_errorSum = 0;
-    double m_lastPosition = 0;
-    m_error = m_limeLight.getXDistance();
-    m_errorSum += m_error;
-    output += m_error * m_P;
-    output += m_errorSum * m_I;
-    output -= m_error - m_lastPosition * m_D;
-    m_drive.setForward(output);
+
+    m_pid.setPosition(m_limeLight.getXDistance());
+    m_pid.setTarget(0);
+    m_drive.setForward(m_pid.calculateError());
+
     RoboBaseClass.doActionsAll();
   }
   @Override
