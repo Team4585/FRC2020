@@ -12,8 +12,6 @@ public class BasicPID {
     private double m_lastPosition;
     private double m_target;
     private double m_position;
-    public BasicPID() {
-    }
 
     public double getTarget() { return m_target; }
     public double getPosition(){return m_position;}

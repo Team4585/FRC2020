@@ -8,14 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.biblioteca.*;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.RobotConstants;
 import frc.robot.biblioteca.*;
-import frc.robot.biblioteca.subsystem.*;
+import frc.robot.biblioteca.basesubsystem.*;
 
 public class Robot extends TimedRobot {
   HuskyTalon m_rightMaster;
@@ -52,8 +49,6 @@ public class Robot extends TimedRobot {
     m_pid.setD(m_D);
     m_pid.setMinOutput(-0.5);
     m_pid.setMinOutput(0.5);
-    //largeIntake.setInverted(RobotConstants.largeInvert);
-    //smallIntake.setInverted(RobotConstants.smallInvert);
   }
   @Override
   public void robotPeriodic() {
