@@ -37,7 +37,9 @@ public class BasicPID {
         output += m_error * m_P;
         output += m_errorSum * m_I;
         output -= m_error - m_lastPosition * m_D;
-        if(Math.abs(m_errorSum) > m_maxError)
+        if(m_errorSum > m_maxError) {
+            m_errorSum = m_maxError;
+        }
         if(output > m_maxOutput){
             output = m_maxOutput;
         }
@@ -45,7 +47,6 @@ public class BasicPID {
             output = m_minOutput;
         }
         return output;
-
     }
 }
 

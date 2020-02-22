@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.biblioteca.*;
@@ -23,9 +25,8 @@ public class Robot extends TimedRobot {
   LimeLightCamera m_limeLight;
   Drive m_drive;
   BasicPID m_pid;
-  double m_P = 0.001;
-  double m_I = 0.001;
-  double m_D = 0.001;
+  UltrasonicSensor m_distance;
+  Potentiometer m_potentiometer;
 
   @Override
   public void robotInit() {
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
     m_rightSlave = new HuskyVictor(RobotConstants.rightSlavePort);
     m_leftSlave = new HuskyVictor(RobotConstants.leftSlavePort);
 
+    m_distance = new UltrasonicSensor(0);
+
     m_rightMaster.setInverted(RobotConstants.rightInvert);
     m_leftMaster.setInverted(RobotConstants.leftInvert);
     m_leftSlave.follow(m_leftMaster);
@@ -44,14 +47,17 @@ public class Robot extends TimedRobot {
     m_limeLight = new LimeLightCamera();
     m_drive = new SimpleTankDrive(m_leftMaster, m_leftSlave, m_rightMaster, m_rightSlave);
     m_pid = new BasicPID();
-    m_pid.setP(m_P);
-    m_pid.setI(m_I);
-    m_pid.setD(m_D);
+    m_pid.setP(RobotConstants.rotateP);
+    m_pid.setI(RobotConstants.rotateI);
+    m_pid.setD(RobotConstants.rotateD);
     m_pid.setMinOutput(-0.5);
-    m_pid.setMinOutput(0.5);
+    m_pid.setMaxOutput(0.5);
   }
   @Override
   public void robotPeriodic() {
+    m_distance.gatherInfo();
+    m_distance.doActions();
+    SmartDashboard.putNumber("Distance (cm)", m_distance.getCentimeters());
   }
   @Override
   public void autonomousInit() {
@@ -60,17 +66,19 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     RoboBaseClass.gatherInfoAll();
 
-    m_pid.setPosition(m_limeLight.getXDistance());
+    m_pid.setPosition(-m_limeLight.getXDistance());
     m_pid.setTarget(0);
-    m_drive.setForward(m_pid.calculateError());
+    m_drive.setForward(m_pid.calculateError()/3);
 
     RoboBaseClass.doActionsAll();
   }
   @Override
   public void teleopPeriodic() {
     RoboBaseClass.gatherInfoAll();
-    m_drive.setForward(driveControl.getAxis(0));
+
+    m_drive.setForward(driveControl.getAxis(2));
     m_drive.setTwist(driveControl.getAxis(1));
+
     RoboBaseClass.doActionsAll();
   }
   @Override

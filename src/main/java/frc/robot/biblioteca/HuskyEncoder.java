@@ -1,8 +1,7 @@
 package frc.robot.biblioteca;
-import frc.robot.biblioteca.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 
-public class HuskyEncoder extends AnalogInput{
+public class HuskyEncoder extends AnalogIn{
     private int m_port1;
     private int m_port2;
     private Encoder m_encoder;

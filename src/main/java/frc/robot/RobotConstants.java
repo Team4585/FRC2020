@@ -27,4 +27,8 @@ public class RobotConstants {
     public static boolean leftInvert = false;
     public static boolean largeInvert = false;
     public static boolean smallInvert = false;
+    //PID
+    public static double rotateP = 0.0000001;
+    public static double rotateI = 0.0000001;
+    public static double rotateD = 0.975;
 }
