@@ -1,6 +1,6 @@
 package frc.robot.biblioteca;
 
-class ColorInput extends RoboBaseClass {
+public class ColorInput extends RoboBaseClass {
     private HuskyColor m_currentValue;
     public ColorInput() {
         super();
