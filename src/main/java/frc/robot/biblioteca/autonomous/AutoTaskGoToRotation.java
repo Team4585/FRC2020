@@ -12,16 +12,18 @@ public class AutoTaskGoToRotation extends AutoTask {
     }
     @Override
     public void Init() {
-        isComplete = false;
+        m_isComplete = false;
     }
     @Override
     public void Run() {
         //TODO Change this to PID
         m_currentHeading = m_drive.getHeading();
         m_drive.setTwist(m_currentHeading-m_targetHeading);
+        if(true) {
+            m_isComplete = true;
+        }
     }
     @Override
     public void OnComplete() {
-        isComplete = true;
     }
 }

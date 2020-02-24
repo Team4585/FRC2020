@@ -44,8 +44,6 @@ public class SimpleTankDrive extends Drive{
     m_rightSlave.setInverted(boo);
   }
   @Override
-  public void gatherInfo(){}
-  @Override
   public void doActions(){
     m_leftMaster.set(((m_forward * driveInv) - (m_twist * twistInv)) * invertLeft);
     m_rightMaster.set(((m_forward * driveInv) + (m_twist * twistInv)) * invertRight);

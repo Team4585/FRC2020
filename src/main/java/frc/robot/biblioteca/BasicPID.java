@@ -14,10 +14,11 @@ public class BasicPID {
     private double m_position;
 
     public double getTarget() { return m_target; }
-    public double getPosition(){return m_position;}
+    public double getPosition(){return m_position; }
     public double getP() { return m_P; }
     public double getI() { return m_I; }
     public double getD() { return m_D; }
+    public double getError() { return m_error; }
 
     public void setTarget(double target) {m_target = target;}
     public void setPosition(double position) {

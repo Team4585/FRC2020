@@ -1,11 +1,11 @@
 package frc.robot.biblioteca.autonomous;
 
 public class AutoTask {
-    protected boolean isComplete;
+    protected boolean m_isComplete;
     public void Init() {}
     public void Run() {}
     public void OnComplete() {}
     public boolean IsComplete() {
-        return isComplete;
+        return m_isComplete;
     }
 }

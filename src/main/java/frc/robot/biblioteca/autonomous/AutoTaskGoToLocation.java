@@ -14,7 +14,7 @@ public class AutoTaskGoToLocation extends AutoTask {
     }
     @Override
     public void Init() {
-        isComplete = false;
+        m_isComplete = false;
     }
     @Override
     public void Run() {
@@ -26,9 +26,11 @@ public class AutoTaskGoToLocation extends AutoTask {
         if(Math.abs(m_currentHeading-m_targetHeading) < 0.1) {
             m_drive.setForward(0.5);
         }
+        if(true) {
+            m_isComplete = true;
+        }
     }
     @Override
     public void OnComplete() {
-        isComplete = true;
     }
 }
