@@ -9,7 +9,8 @@ public class AutoTaskGoToLocation extends AutoTask {
     private HuskyVector2D m_targetPosition;
     private double m_currentHeading;
     private double m_targetHeading;
-    public AutoTaskGoToLocation(HuskyVector2D targetPosition) {
+    public AutoTaskGoToLocation(Drive drive, HuskyVector2D targetPosition) {
+        m_drive = drive;
         m_targetPosition = targetPosition;
     }
     @Override

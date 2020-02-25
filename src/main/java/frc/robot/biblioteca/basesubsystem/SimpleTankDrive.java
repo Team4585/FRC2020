@@ -43,6 +43,7 @@ public class SimpleTankDrive extends Drive{
   public void fightingRight(boolean boo){
     m_rightSlave.setInverted(boo);
   }
+  public void gatherInfo(){}
   @Override
   public void doActions(){
     m_leftMaster.set(((m_forward * driveInv) - (m_twist * twistInv)) * invertLeft);

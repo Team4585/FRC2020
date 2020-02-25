@@ -2,7 +2,6 @@ package frc.robot.biblioteca.autonomous;
 
 import frc.robot.biblioteca.basesubsystem.Drive;
 import frc.robot.RobotConstants;
-import frc.robot.Robot;
 import frc.robot.biblioteca.*;
 
 
@@ -12,7 +11,9 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     private double m_targetHeading;
     private BasicPID m_pid;
     private LimeLightCamera m_limeLight;
-    public AutoTaskLimeLightRotate() {
+    public AutoTaskLimeLightRotate(Drive drive, LimeLightCamera camera) {
+        m_drive = drive;
+        m_limeLight = camera;
         m_pid = new BasicPID();
         m_pid.setP(RobotConstants.rotateP);
         m_pid.setI(RobotConstants.rotateI);
@@ -28,7 +29,7 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     public void Run() {
         m_pid.setPosition(-m_limeLight.getXDistance());
         m_pid.setTarget(0);
-        m_drive.setForward(m_pid.calculateError()/3);
+        m_drive.setTwist(m_pid.calculateError()/3);
         if(m_pid.getError() < 0.1) {
             m_isComplete = true;
         }
