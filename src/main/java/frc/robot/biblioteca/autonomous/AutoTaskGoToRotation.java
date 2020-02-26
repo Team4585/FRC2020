@@ -1,15 +1,17 @@
 package frc.robot.biblioteca.autonomous;
 
 import frc.robot.biblioteca.BasicPID;
+import frc.robot.biblioteca.HuskyPigeon;
 import frc.robot.RobotConstants;
 import frc.robot.biblioteca.basesubsystem.Drive;
 
 public class AutoTaskGoToRotation extends AutoTask {
     private Drive m_drive;
+    private HuskyPigeon m_pigeon;
     private double m_currentHeading;
     private double m_targetHeading;
     private BasicPID m_pid;
-    public AutoTaskGoToRotation(Drive drive, double targetHeading) {
+    public AutoTaskGoToRotation(Drive drive, HuskyPigeon pigeon, double targetHeading) {
         m_drive = drive;
         m_targetHeading = targetHeading;
         m_pid = new BasicPID();
@@ -25,11 +27,10 @@ public class AutoTaskGoToRotation extends AutoTask {
     }
     @Override
     public void Run() {
-        m_currentHeading = m_drive.getHeading();
-        m_pid.setPosition(m_currentHeading);
+        m_pid.setPosition(m_pigeon.getValue().getX());
         m_pid.setTarget(m_targetHeading);
         m_drive.setTwist(m_pid.calculateError());
-        if(m_pid.getError() < 0.1) {
+        if(Math.abs(m_pid.getError()) < RobotConstants.rotateTolerance) {
             m_isComplete = true;
         }
     }

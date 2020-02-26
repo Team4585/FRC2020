@@ -27,12 +27,13 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     }
     @Override
     public void Run() {
-        m_pid.setPosition(-m_limeLight.getXDistance());
+        m_pid.setPosition(m_limeLight.getXDistance());
         m_pid.setTarget(0);
-        m_drive.setTwist(m_pid.calculateError()/3);
-        if(m_pid.getError() < 0.1) {
+        m_drive.setTwist(m_pid.calculateError());
+        if(Math.abs(m_pid.getError()) < RobotConstants.rotateTolerance) {
             m_isComplete = true;
         }
+        System.out.println(m_limeLight.getXDistance());
     }
     @Override
     public void OnComplete() {

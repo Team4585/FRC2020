@@ -22,7 +22,7 @@ public class BasicPID {
 
     public void setTarget(double target) {m_target = target;}
     public void setPosition(double position) {
-        m_lastPosition = position;
+        m_lastPosition = m_position;
         m_position = position; 
     }
     public void setP(double P) { m_P = P; }
@@ -33,13 +33,16 @@ public class BasicPID {
 
     public double calculateError() {
         double output = 0;
+        System.out.println(m_errorSum);
         m_error = m_target - m_position;
         m_errorSum += m_error;
         output += m_error * m_P;
         output += m_errorSum * m_I;
-        output -= m_error - m_lastPosition * m_D;
-        if(m_errorSum > m_maxError) {
-            m_errorSum = m_maxError;
+        output -= (m_error - m_lastPosition) * m_D;
+        if(m_maxError != 0){
+            if(m_errorSum > m_maxError) {
+                m_errorSum = m_maxError;
+            }
         }
         if(output > m_maxOutput){
             output = m_maxOutput;

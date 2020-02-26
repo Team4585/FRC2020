@@ -83,6 +83,9 @@ public class HuskyVector2D {
         return Math.toDegrees(Math.atan2(WorkVec.GetX(), WorkVec.GetY()));
     }
 
+    public String toString() {
+        return "("+GetX()+", "+GetY()+")";
+    }
 
 
 }

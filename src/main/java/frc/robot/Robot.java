@@ -23,29 +23,38 @@ public class Robot extends TimedRobot {
   Drive m_drive;
   LimeLightCamera m_limeLight;
   AutoController m_autoController;
+  HuskyPigeon m_pigeonIMU;
 
   @Override
   public void robotInit() {
     driveControl = new HuskyJoystick(RobotConstants.joystickNumber);
     driveControl.setDeadZone(RobotConstants.joystickDeadZone);
-    //Motors
+    m_pigeonIMU = new HuskyPigeon(1);
 
     m_limeLight = new LimeLightCamera();
     m_drive = new Laika();
     m_autoController = new AutoController();
+    SmartDashboard.putNumber("RotateP", RobotConstants.rotateP);
+    SmartDashboard.putNumber("RotateI", RobotConstants.rotateI);
+    SmartDashboard.putNumber("RotateD", RobotConstants.rotateD);
+    
   }
   @Override
   public void robotPeriodic() {
+    m_pigeonIMU.gatherInfo();
+    SmartDashboard.putString("Direction", m_pigeonIMU.getValue().toString());
   }
   @Override
   public void autonomousInit() {
-    m_autoController.Init();
+    RobotConstants.rotateP = SmartDashboard.getNumber("RotateP", 0);
+    RobotConstants.rotateI = SmartDashboard.getNumber("RotateI", 0);
+    RobotConstants.rotateD = SmartDashboard.getNumber("RotateD", 0);
+    m_autoController.Init(m_drive, m_limeLight, m_pigeonIMU);
     m_autoController.setActive(true);
   }
   @Override
   public void autonomousPeriodic() {
     RoboBaseClass.gatherInfoAll();
-
     RoboBaseClass.doActionsAll();
   }
   @Override

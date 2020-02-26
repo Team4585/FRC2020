@@ -1,5 +1,9 @@
 package frc.robot.biblioteca.autonomous;
+
+import frc.robot.biblioteca.HuskyPigeon;
+import frc.robot.biblioteca.LimeLightCamera;
 import frc.robot.biblioteca.RoboBaseClass;
+import frc.robot.biblioteca.basesubsystem.Drive;
 public class AutoController extends RoboBaseClass {
     private AutoTask[] m_taskList;
     private AutoTask m_currentTask;
@@ -8,10 +12,10 @@ public class AutoController extends RoboBaseClass {
     public AutoController() {
         super();
     }
-    public void Init() {
+    public void Init(Drive drive, LimeLightCamera camera, HuskyPigeon pigeon) {
         System.out.println("Init!");
         m_taskNumber = 0;
-        m_taskList = new AutoTask[] {new AutoTaskOutput("Test1"), new AutoTaskOutput("Test2"), new AutoTaskOutput("Test3")};
+        m_taskList = new AutoTask[] {new AutoTaskGoToRotation(drive, pigeon, 360)};
         m_currentTask = m_taskList[0];
     }
     public void gatherInfo() {
