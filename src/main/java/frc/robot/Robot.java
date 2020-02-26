@@ -62,8 +62,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     RoboBaseClass.gatherInfoAll();
 
-    m_drive.setForward(driveControl.getAxis(2));
-    m_drive.setTwist(driveControl.getAxis(1));
+    m_drive.setForward(driveControl.getAxis(1));
+    m_drive.setTwist(driveControl.getAxis(2));
 
     RoboBaseClass.doActionsAll();
   }

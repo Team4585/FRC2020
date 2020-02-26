@@ -15,14 +15,13 @@ public class HuskyPigeon extends Vector3DIn {
         setValue(new HuskyVector3D(angles[0], angles[1], angles[2]));
     }
     public void reset() {
-        m_pigeon.setCompassAngle(0);
         m_pigeon.setYaw(0);
     }
-    public void adjustToRange(double min, double max) {
-        while(getValue().getX() < min) {
+    public void adjustToRange(double offset) {
+        while(getValue().getX() < offset) {
             getValue().setX(getValue().getX()+360);
         }
-        while(getValue().getX() > max) {
+        while(getValue().getX() > offset+360) {
             getValue().setX(getValue().getX()-360);
         }
     }

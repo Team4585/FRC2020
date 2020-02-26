@@ -11,6 +11,7 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     private double m_targetHeading;
     private BasicPID m_pid;
     private LimeLightCamera m_limeLight;
+    private int m_timeIn;
     public AutoTaskLimeLightRotate(Drive drive, LimeLightCamera camera) {
         m_drive = drive;
         m_limeLight = camera;
@@ -24,6 +25,7 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     @Override
     public void Init() {
         m_isComplete = false;
+        m_timeIn = 0;
     }
     @Override
     public void Run() {
@@ -31,9 +33,13 @@ public class AutoTaskLimeLightRotate extends AutoTask {
         m_pid.setTarget(0);
         m_drive.setTwist(m_pid.calculateError());
         if(Math.abs(m_pid.getError()) < RobotConstants.aimXTolerance) {
+            m_timeIn ++;
+        } else {
+            m_timeIn = 0;
+        }
+        if(m_timeIn > 10) {
             m_isComplete = true;
         }
-        System.out.println(m_limeLight.getXDistance());
     }
     @Override
     public void OnComplete() {

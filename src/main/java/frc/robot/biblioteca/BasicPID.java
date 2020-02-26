@@ -37,7 +37,9 @@ public class BasicPID {
         m_errorSum += m_error;
         output += m_error * m_P;
         output += m_errorSum * m_I;
-        output -= (m_error - m_lastPosition) * m_D;
+        output -= (m_position - m_lastPosition) * m_D;
+        //System.out.println("Output: " + output + " P: " + m_error * m_P + " I: " + m_errorSum * m_I + " D: " + (m_error - m_lastPosition) * m_D * -1);
+        //System.out.println("Error: " + m_error + " Last: " + m_lastPosition);
         if(m_maxError != 0){
             if(m_errorSum > m_maxError) {
                 m_errorSum = m_maxError;

@@ -1,7 +1,7 @@
 package frc.robot.biblioteca;
 import frc.robot.biblioteca.RoboBaseClass;
 
-class Vector3DIn extends RoboBaseClass {
+public class Vector3DIn extends RoboBaseClass {
     private HuskyVector3D m_currentValue;
     public Vector3DIn() {
         super();

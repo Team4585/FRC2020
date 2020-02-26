@@ -28,12 +28,12 @@ public class RobotConstants {
     public static boolean largeInvert = false;
     public static boolean smallInvert = false;
     //PID
-    public static double rotateP = 0.08;//0.0000001;
-    public static double rotateI = 0;//0.0000001;
-    public static double rotateD = 0.03;//0.975;
-    public static double rotateTolerance = 0;
-    public static double aimXP = 0.08;//0.0000001;
-    public static double aimXI = 0.001;//0.0000001;
-    public static double aimXD = 0.03;//0.975;
-    public static double aimXTolerance = 0;
+    public static double rotateP = 0.080;
+    public static double rotateI = 0;
+    public static double rotateD = 0.030;
+    public static double rotateTolerance = 1;
+    public static double aimXP = 0.080;
+    public static double aimXI = 0.001;
+    public static double aimXD = 0.030;
+    public static double aimXTolerance = 1;
 }
