@@ -13,15 +13,17 @@ public class HuskyPigeon extends Vector3DIn {
         double[] angles = new double[3];
         m_pigeon.getYawPitchRoll(angles);
         setValue(new HuskyVector3D(angles[0], angles[1], angles[2]));
-        while(getValue().getX() >= 360) {
-            getValue().setX(getValue().getX()-360);
-        }
-        while(getValue().getX() < 0) {
-            getValue().setX(getValue().getX()+360);
-        }
     }
     public void reset() {
         m_pigeon.setCompassAngle(0);
         m_pigeon.setYaw(0);
+    }
+    public void adjustToRange(double min, double max) {
+        while(getValue().getX() < min) {
+            getValue().setX(getValue().getX()+360);
+        }
+        while(getValue().getX() > max) {
+            getValue().setX(getValue().getX()-360);
+        }
     }
 }

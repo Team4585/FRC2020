@@ -27,9 +27,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    m_pigeonIMU = new HuskyPigeon(1);
     driveControl = new HuskyJoystick(RobotConstants.joystickNumber);
     driveControl.setDeadZone(RobotConstants.joystickDeadZone);
-    m_pigeonIMU = new HuskyPigeon(1);
 
     m_limeLight = new LimeLightCamera();
     m_drive = new Laika();
@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void autonomousInit() {
+    m_pigeonIMU.reset();
     RobotConstants.rotateP = SmartDashboard.getNumber("RotateP", 0);
     RobotConstants.rotateI = SmartDashboard.getNumber("RotateI", 0);
     RobotConstants.rotateD = SmartDashboard.getNumber("RotateD", 0);

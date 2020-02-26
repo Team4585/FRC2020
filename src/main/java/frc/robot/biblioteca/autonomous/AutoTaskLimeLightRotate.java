@@ -15,9 +15,9 @@ public class AutoTaskLimeLightRotate extends AutoTask {
         m_drive = drive;
         m_limeLight = camera;
         m_pid = new BasicPID();
-        m_pid.setP(RobotConstants.rotateP);
-        m_pid.setI(RobotConstants.rotateI);
-        m_pid.setD(RobotConstants.rotateD);
+        m_pid.setP(RobotConstants.aimXP);
+        m_pid.setI(RobotConstants.aimXI);
+        m_pid.setD(RobotConstants.aimXD);
         m_pid.setMinOutput(-0.5);
         m_pid.setMaxOutput(0.5);
     }
@@ -30,7 +30,7 @@ public class AutoTaskLimeLightRotate extends AutoTask {
         m_pid.setPosition(m_limeLight.getXDistance());
         m_pid.setTarget(0);
         m_drive.setTwist(m_pid.calculateError());
-        if(Math.abs(m_pid.getError()) < RobotConstants.rotateTolerance) {
+        if(Math.abs(m_pid.getError()) < RobotConstants.aimXTolerance) {
             m_isComplete = true;
         }
         System.out.println(m_limeLight.getXDistance());

@@ -13,6 +13,7 @@ public class AutoTaskGoToRotation extends AutoTask {
     private BasicPID m_pid;
     public AutoTaskGoToRotation(Drive drive, HuskyPigeon pigeon, double targetHeading) {
         m_drive = drive;
+        m_pigeon = pigeon;
         m_targetHeading = targetHeading;
         m_pid = new BasicPID();
         m_pid.setP(RobotConstants.rotateP);
@@ -24,6 +25,7 @@ public class AutoTaskGoToRotation extends AutoTask {
     @Override
     public void Init() {
         m_isComplete = false;
+        m_pigeon.adjustToRange(0, 360);
     }
     @Override
     public void Run() {

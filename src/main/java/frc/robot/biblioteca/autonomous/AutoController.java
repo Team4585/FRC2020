@@ -15,7 +15,7 @@ public class AutoController extends RoboBaseClass {
     public void Init(Drive drive, LimeLightCamera camera, HuskyPigeon pigeon) {
         System.out.println("Init!");
         m_taskNumber = 0;
-        m_taskList = new AutoTask[] {new AutoTaskGoToRotation(drive, pigeon, 360)};
+        m_taskList = new AutoTask[] {new AutoTaskGoToRotation(drive, pigeon, 90)};
         m_currentTask = m_taskList[0];
     }
     public void gatherInfo() {

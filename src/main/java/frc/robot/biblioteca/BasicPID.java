@@ -33,7 +33,6 @@ public class BasicPID {
 
     public double calculateError() {
         double output = 0;
-        System.out.println(m_errorSum);
         m_error = m_target - m_position;
         m_errorSum += m_error;
         output += m_error * m_P;
