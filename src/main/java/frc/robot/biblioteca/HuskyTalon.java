@@ -7,9 +7,9 @@ public class HuskyTalon extends Motor {
     public HuskyTalon(final int port) {
         talon = new TalonSRX(port);
     }
-
     @Override
     public void doActions(){
-        talon.set(ControlMode.PercentOutput, this.getTargetSpeed());
+        talon.set(ControlMode.PercentOutput, getTargetSpeed());
+        setRealSpeed(talon.getSelectedSensorVelocity());
     }
 }

@@ -37,6 +37,9 @@ public class Motor extends AnalogOutput {
             invert = 1;
         }
     }
+    protected void setRealSpeed(double speed) {
+        m_realSpeed = speed;
+    }
     @Override
     public void doActions(){
         this.m_following.set(m_speed * -1);

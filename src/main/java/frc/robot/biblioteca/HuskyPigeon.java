@@ -25,4 +25,14 @@ public class HuskyPigeon extends Vector3DIn {
             getValue().setX(getValue().getX()-360);
         }
     }
+    public static double adjustToRange(double value, double offset) {
+        double returnValue = value;
+        while(returnValue < offset) {
+            returnValue += 360;
+        }
+        while(returnValue > offset+360) {
+            returnValue -= 360;
+        }
+        return returnValue;
+    }
 }

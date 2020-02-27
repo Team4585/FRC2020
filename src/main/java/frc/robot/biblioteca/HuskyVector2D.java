@@ -19,28 +19,28 @@ public class HuskyVector2D {
 
     public HuskyVector2D(HuskyVector2D Orig)
     {
-        m_x = Orig.GetX();
-        m_y = Orig.GetY();
+        m_x = Orig.getX();
+        m_y = Orig.getY();
     }
 
 
-    public double GetX() { return m_x; }
-    public void SetX(double NewX) { m_x = NewX; }
-    public double GetY() { return m_y; }
-    public void SetY(double NewY) { m_y = NewY; }
+    public double getX() { return m_x; }
+    public void setX(double NewX) { m_x = NewX; }
+    public double getY() { return m_y; }
+    public void setY(double NewY) { m_y = NewY; }
     public double GetEqualThreshold() { return m_equalTreshold; }
     public void SetEqualThreshold(double NewThresh) { m_equalTreshold = NewThresh; }
 
     public void SetVals(double NewX, double NewY)
     {
-        SetX(NewX);
-        SetY(NewY);
+        setX(NewX);
+        setY(NewY);
     }
 
     public void SetVals(HuskyVector2D OtherVec)
     {
-        SetX(OtherVec.GetX());
-        SetY(OtherVec.GetY());
+        setX(OtherVec.getX());
+        setY(OtherVec.getY());
     }
 
     public double GetMagnitude()
@@ -50,20 +50,20 @@ public class HuskyVector2D {
 
     public void AddVec(HuskyVector2D OtherVec)
     {
-        SetX(GetX() + OtherVec.GetX());
-        SetY(GetY() + OtherVec.GetY());
+        setX(getX() + OtherVec.getX());
+        setY(getY() + OtherVec.getY());
     }
 
     public void SubVec(HuskyVector2D OtherVec)
     {
-        SetX(GetX() - OtherVec.GetX());
-        SetY(GetY() - OtherVec.GetY());
+        setX(getX() - OtherVec.getX());
+        setY(getY() - OtherVec.getY());
     }
 
     public double DistanceTo(HuskyVector2D OtherVec)
     {
-        double DeltaX = OtherVec.GetX() - GetX();
-        double DeltaY = OtherVec.GetY() - GetY();
+        double DeltaX = OtherVec.getX() - getX();
+        double DeltaY = OtherVec.getY() - getY();
         double RawDist = Math.sqrt((DeltaX * DeltaX) + (DeltaY * DeltaY));
         return (RawDist <= m_equalTreshold) ? 0.0 : RawDist;
     }
@@ -80,11 +80,11 @@ public class HuskyVector2D {
     public double AngleTo(HuskyVector2D OtherVec)
     {
         HuskyVector2D WorkVec = VectorTo(OtherVec);
-        return Math.toDegrees(Math.atan2(WorkVec.GetX(), WorkVec.GetY()));
+        return Math.toDegrees(Math.atan2(WorkVec.getX(), WorkVec.getY()));
     }
 
     public String toString() {
-        return "("+GetX()+", "+GetY()+")";
+        return "("+getX()+", "+getY()+")";
     }
 
 

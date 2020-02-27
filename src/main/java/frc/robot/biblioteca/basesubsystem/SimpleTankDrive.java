@@ -1,5 +1,7 @@
 package frc.robot.biblioteca.basesubsystem;
+
 import frc.robot.biblioteca.Motor;
+import frc.robot.biblioteca.Vector3DIn;
 
 public class SimpleTankDrive extends Drive{
   private Motor m_leftMaster;
@@ -10,6 +12,7 @@ public class SimpleTankDrive extends Drive{
   private double driveInv;
   private double invertRight;
   private double invertLeft;
+  private double heading;
   public SimpleTankDrive(Motor leftMaster, Motor leftSlave, Motor rightMaster, Motor rightSlave){
     super();
     m_leftMaster = leftMaster;
@@ -43,7 +46,8 @@ public class SimpleTankDrive extends Drive{
   public void fightingRight(boolean boo){
     m_rightSlave.setInverted(boo);
   }
-  public void gatherInfo(){}
+  public void gatherInfo(){
+  }
   @Override
   public void doActions(){
     m_leftMaster.set(((m_forward * driveInv) - (m_twist * twistInv)) * invertLeft);
