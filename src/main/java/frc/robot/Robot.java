@@ -14,6 +14,7 @@ import frc.robot.biblioteca.basesubsystem.*;
 import frc.robot.RobotConstants;
 import frc.robot.subsystem.*;
 import frc.robot.biblioteca.autonomous.AutoController;
+import frc.robot.biblioteca.autonomous.AutoTaskLimeLightRotate;
 
 public class Robot extends TimedRobot {
   Drive m_driveTrain;
@@ -26,9 +27,13 @@ public class Robot extends TimedRobot {
 
   LimeLightCamera m_limeLight;
   AutoController m_autoController;
+  AutoTaskLimeLightRotate m_autoRotate;
+
   double speedSum;
   double speedCount;
   int waitTime;
+  boolean m_doIntake;
+  boolean m_doHelix;
 
   @Override
   public void robotInit() {
@@ -44,6 +49,7 @@ public class Robot extends TimedRobot {
     m_limeLight = new LimeLightCamera();
 
     m_autoController = new AutoController();
+    m_autoRotate = new AutoTaskLimeLightRotate(m_driveTrain, m_shooter, m_limeLight);
   }
   @Override
   public void robotPeriodic() {
@@ -59,17 +65,31 @@ public class Robot extends TimedRobot {
     RoboBaseClass.doActionsAll();
   }
   @Override
+  public void teleopInit() {
+    m_autoRotate.Init();
+  }
+  @Override
   public void teleopPeriodic() {
     RoboBaseClass.gatherInfoAll();
-
+    
     m_driveTrain.setForward(m_driveControl.getAxis(RobotConstants.forwardAxis) * 1);
-    m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis) * 1);
+    if(m_driveControl.getButton(RobotConstants.aimOverrideButton)) {
+      m_autoRotate.Run();
+    } else {
+      m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis) * 1);
+      m_shooter.rotateY(m_weaponsControl.getAxis(RobotConstants.aimAxis));
+    }
     m_driveTrain.setStrafe(m_driveControl.getAxis(RobotConstants.strafeAxis) * 1);
 
     m_shooter.setShoot(m_weaponsControl.getButton(RobotConstants.shootButton)?RobotConstants.shootSpeed:0);
-    //TODO Change this to toggling
-    m_intake.intake(m_weaponsControl.getButton(RobotConstants.intakeButton)?RobotConstants.intakeSpeed:0, 
-    m_weaponsControl.getButton(RobotConstants.helixButton)?RobotConstants.intakeSpeed:0);
+    
+    if(m_weaponsControl.getButtonPressed(RobotConstants.intakeButton)) {
+      m_doIntake = !m_doIntake;
+    }
+    if(m_weaponsControl.getButtonPressed(RobotConstants.helixButton)) {
+      m_doHelix = !m_doHelix;
+    }
+    m_intake.intake(m_doIntake?RobotConstants.intakeSpeed:0, m_doHelix?RobotConstants.helixSpeed:0);
 
     if(m_weaponsControl.getButton(9)) {
       m_colorWheel.goToColor(RobotConstants.colorBlue);

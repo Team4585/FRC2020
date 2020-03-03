@@ -1,26 +1,35 @@
 package frc.robot.biblioteca.autonomous;
 
-import frc.robot.biblioteca.basesubsystem.Drive;
+import frc.robot.biblioteca.basesubsystem.*;
 import frc.robot.RobotConstants;
 import frc.robot.biblioteca.*;
 
 
 public class AutoTaskLimeLightRotate extends AutoTask {
     private Drive m_drive;
+    private Turret m_shooter;
     private double m_currentHeading;
     private double m_targetHeading;
-    private BasicPID m_pid;
+    private BasicPID m_pidX;
+    private BasicPID m_pidY;
     private LimeLightCamera m_limeLight;
     private int m_timeIn;
-    public AutoTaskLimeLightRotate(Drive drive, LimeLightCamera camera) {
+    public AutoTaskLimeLightRotate(Drive drive, Turret shooter, LimeLightCamera camera) {
         m_drive = drive;
+        m_shooter = shooter;
         m_limeLight = camera;
-        m_pid = new BasicPID();
-        m_pid.setP(RobotConstants.aimXP);
-        m_pid.setI(RobotConstants.aimXI);
-        m_pid.setD(RobotConstants.aimXD);
-        m_pid.setMinOutput(-0.5);
-        m_pid.setMaxOutput(0.5);
+        m_pidX = new BasicPID();
+        m_pidX.setP(RobotConstants.aimXP);
+        m_pidX.setI(RobotConstants.aimXI);
+        m_pidX.setD(RobotConstants.aimXD);
+        m_pidX.setMinOutput(-0.5);
+        m_pidX.setMaxOutput(0.5);
+        m_pidY = new BasicPID();
+        m_pidY.setP(RobotConstants.aimYP);
+        m_pidY.setI(RobotConstants.aimYI);
+        m_pidY.setD(RobotConstants.aimYD);
+        m_pidY.setMinOutput(-0.5);
+        m_pidY.setMaxOutput(0.5);
     }
     @Override
     public void Init() {
@@ -29,10 +38,16 @@ public class AutoTaskLimeLightRotate extends AutoTask {
     }
     @Override
     public void Run() {
-        m_pid.setPosition(m_limeLight.getXDistance());
-        m_pid.setTarget(0);
-        m_drive.setTwist(m_pid.calculateError());
-        if(Math.abs(m_pid.getError()) < RobotConstants.aimXTolerance) {
+        m_pidX.setPosition(m_limeLight.getXDistance());
+        m_pidY.setPosition(m_limeLight.getYDistance());
+
+        m_pidX.setTarget(0);
+        m_pidY.setTarget(RobotConstants.aimYOffset);
+
+        m_drive.setTwist(m_pidX.calculateError());
+        m_shooter.rotateY(m_pidY.calculateError());
+        
+        if(Math.abs(m_pidX.getError()) < RobotConstants.aimXTolerance && Math.abs(m_pidY.getError()) < RobotConstants.aimYTolerance) {
             m_timeIn ++;
         } else {
             m_timeIn = 0;

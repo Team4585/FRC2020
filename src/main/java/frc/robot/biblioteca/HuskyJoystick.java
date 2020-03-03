@@ -1,6 +1,6 @@
 package frc.robot.biblioteca;
 import edu.wpi.first.wpilibj.Joystick;
-public class HuskyJoystick extends RoboBaseClass {
+public class HuskyJoystick {
     private Joystick m_joystick;
     private double m_deadZone = 0.1;
     public HuskyJoystick(int port) {
@@ -12,6 +12,9 @@ public class HuskyJoystick extends RoboBaseClass {
     }
     public boolean getButton(int channel) {
         return(m_joystick.getRawButton(channel));
+    }
+    public boolean getButtonPressed(int channel) {
+        return(m_joystick.getRawButtonPressed(channel));
     }
     public double getAxis(int channel) {
         double val = 0;

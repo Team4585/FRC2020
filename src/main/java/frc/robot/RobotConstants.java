@@ -29,7 +29,9 @@ public class RobotConstants {
     public static int forwardAxis = 1;
     public static int twistAxis = 0;
     public static int strafeAxis = 2;
+    public static int aimAxis = 0;
 
+    public static int aimOverrideButton = 1;
     public static int shootButton = 1;
     public static int intakeButton = 2;
     public static int helixButton = 3;
@@ -46,6 +48,7 @@ public class RobotConstants {
     //Constants
     public static double joystickDeadZone = 0.1;//0 to 1
     public static double colorTolerance = 0.1;
+    public static double aimYOffset = 5;
 
     public static HuskyColor colorRed;
     public static HuskyColor colorYellow;
