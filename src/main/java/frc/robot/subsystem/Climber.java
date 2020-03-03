@@ -1,22 +1,22 @@
 package frc.robot.subsystem;
 import frc.robot.biblioteca.*;
-//this class will probably have two victorspx motors
+//this class will probably have two victorspx MotorControllers
 public class Climber extends RoboBaseClass {
-    private Motor[] m_railMotors;
-    private Motor[] m_traversalMotors;
+    private MotorController[] m_railMotorControllers;
+    private MotorController[] m_traversalMotorControllers;
     private double m_railSpeed;
     private double m_traversalSpeed;
-    public Climber(Motor[] railMotors, Motor[] traversalMotors) {
-        m_railMotors = railMotors;
-        m_traversalMotors = traversalMotors;
+    public Climber(MotorController[] railMotorControllers, MotorController[] traversalMotorControllers) {
+        m_railMotorControllers = railMotorControllers;
+        m_traversalMotorControllers = traversalMotorControllers;
     }
     @Override
     public void doActions() {
-        for(Motor railMotor : m_railMotors) {
-            railMotor.set(m_railSpeed);
+        for(MotorController railMotorController : m_railMotorControllers) {
+            railMotorController.set(m_railSpeed);
         }
-        for(Motor traversalMotor : m_traversalMotors) {
-            traversalMotor.set(m_traversalSpeed);
+        for(MotorController traversalMotorController : m_traversalMotorControllers) {
+            traversalMotorController.set(m_traversalSpeed);
         }
     }
     public void move(double speed) {

@@ -1,19 +1,19 @@
 package frc.robot.biblioteca.basesubsystem;
 
-import frc.robot.biblioteca.Motor;
+import frc.robot.biblioteca.MotorController;
 import frc.robot.biblioteca.Vector3DIn;
 
 public class SimpleTankDrive extends Drive{
-  private Motor m_leftMaster;
-  private Motor m_leftSlave;
-  private Motor m_rightMaster;
-  private Motor m_rightSlave;
+  private MotorController m_leftMaster;
+  private MotorController m_leftSlave;
+  private MotorController m_rightMaster;
+  private MotorController m_rightSlave;
   private double twistInv;
   private double driveInv;
   private double invertRight;
   private double invertLeft;
   private double heading;
-  public SimpleTankDrive(Motor leftMaster, Motor leftSlave, Motor rightMaster, Motor rightSlave){
+  public SimpleTankDrive(MotorController leftMaster, MotorController leftSlave, MotorController rightMaster, MotorController rightSlave){
     super();
     m_leftMaster = leftMaster;
     m_leftSlave = leftSlave;

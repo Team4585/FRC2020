@@ -1,19 +1,19 @@
 package frc.robot.biblioteca;
-public class Motor extends AnalogOutput {
+public class MotorController extends AnalogOutput {
     private boolean m_ifFollowing;
-    private Motor m_following;
+    private MotorController m_following;
     private double m_speed;
     private double m_realSpeed;
     int invert;
-    public Motor() {
+    public MotorController() {
         super(-1, 1);
         m_ifFollowing = false;
         invert = 1;
     }
     public void set(double value) {
-        m_speed = value;
+        m_speed = value * invert;
     }
-    public void follow(Motor motorFollow) {
+    public void follow(MotorController motorFollow) {
         m_ifFollowing = true;
         m_following = motorFollow;
 

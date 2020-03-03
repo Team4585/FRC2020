@@ -1,7 +1,7 @@
 package frc.robot.biblioteca;
 import frc.robot.biblioteca.RoboBaseClass;
 
-class AnalogIn extends RoboBaseClass {
+public class AnalogIn extends RoboBaseClass {
     private double m_currentValue;
     private double m_maxValue = 1;
     private double m_minValue = -1;

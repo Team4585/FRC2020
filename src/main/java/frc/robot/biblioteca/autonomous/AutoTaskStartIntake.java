@@ -8,7 +8,7 @@ public class AutoTaskStartIntake extends AutoTask {
         m_intake = intake;
     }
     public void Init() {
-        m_intake.intake(1);
+        //m_intake.intake(1);
     }
     public void Run() {
         m_isComplete = true;

@@ -2,7 +2,7 @@ package frc.robot.biblioteca;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class HuskyTalon extends Motor {
+public class HuskyTalon extends MotorController {
     TalonSRX talon;
     public HuskyTalon(final int port) {
         talon = new TalonSRX(port);

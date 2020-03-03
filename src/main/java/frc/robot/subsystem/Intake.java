@@ -1,25 +1,42 @@
 package frc.robot.subsystem;
 
-import frc.robot.biblioteca.RoboBaseClass;
+import frc.robot.biblioteca.*;
 //use HuskyVictor, Solenoid, and LightSensor
 
 public class Intake extends RoboBaseClass {
     private int totalIn;
-    public Intake() {
-        //instantiate motor, solenoid, and lightsensor
-    }
+    protected MotorController[] m_intakeMotors;
+    protected MotorController[] m_helixMotors;
+    protected HuskySolenoid m_activator;
+
+    private double m_intakeSpeed;
+    private double m_helixSpeed;
+    private boolean m_activated;
+    private boolean m_piston;
     public void gatherInfo() {
-        //check if the light sensor senses things
-        //add to total in
+        
     }
     public void doActions() {
-
+        if(m_activated && m_piston) {
+            for(MotorController intakeMotor : m_intakeMotors) {
+                intakeMotor.setValue(m_intakeSpeed);
+            }
+        } else {
+            for(MotorController intakeMotor : m_intakeMotors) {
+                intakeMotor.setValue(0);
+            }
+        }
+        for(MotorController helixMotor : m_helixMotors) {
+            helixMotor.setValue(m_helixSpeed);
+        }
+        m_activator.setValue(m_piston);
     }
-    public void intake(double speed) {
-        //activate motor
+    public void intake(double intakeSpeed, double helixSpeed) {
+        m_intakeSpeed = intakeSpeed;
+        m_helixSpeed = helixSpeed;
     }
     public void activatePiston(boolean up) {
-        //set the piston
+        m_piston = up;
     }
     public int getTotalIn() {
         return totalIn;

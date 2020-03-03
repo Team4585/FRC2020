@@ -2,7 +2,7 @@ package frc.robot.biblioteca;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 
-class RevColorSensorV3 extends ColorInput {
+public class RevColorSensorV3 extends ColorInput {
     ColorSensorV3 m_colorSensor;
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     

@@ -1,7 +1,7 @@
 package frc.robot.biblioteca;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-public class HuskyVictor extends Motor {
+public class HuskyVictor extends MotorController {
     VictorSPX victor;
     public HuskyVictor(int port) {
         super();

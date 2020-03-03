@@ -2,33 +2,30 @@ package frc.robot.subsystem;
 
 import frc.robot.biblioteca.RoboBaseClass;
 import frc.robot.biblioteca.HuskyColor;
-import frc.robot.biblioteca.Motor;
+import frc.robot.biblioteca.MotorController;
 import frc.robot.biblioteca.ColorInput;
 
 public class ControlPanel extends RoboBaseClass {
 
-    private Motor m_motor;
-    private ColorInput m_colorSensor;
-    private double m_speedOfMotor;
+    protected MotorController m_MotorController;
+    protected ColorInput m_colorSensor;
+    private double m_speedOfMotorController;
     private boolean m_isControlled;
     private HuskyColor m_sensedColor;
     private HuskyColor m_targetColor;
-    private double m_colorTolerance;
-    private double m_autoMotorSpeed;
+    protected double m_colorTolerance;
+    private double m_autoMotorControllerSpeed;
 
     /**
      *
-     * @param motor the motor that moves the robot
+     * @param MotorController the MotorController that moves the robot
      * @param sensor senses color
      * @param tolerance compares color, if the compared color is too different then it's not tolerated and not used
      */
-    public ControlPanel(Motor motor, ColorInput sensor, double tolerance) {
-        m_motor = motor;
-        m_colorSensor = sensor;
-        m_colorTolerance = tolerance;
-        m_autoMotorSpeed = 1;
+    public ControlPanel() {
+        m_autoMotorControllerSpeed = 1;
         m_isControlled = true;
-        m_speedOfMotor = 0;
+        m_speedOfMotorController = 0;
     }
 
     /**
@@ -39,17 +36,17 @@ public class ControlPanel extends RoboBaseClass {
     }
 
     /**
-     * if the robot is being controlled, use the motor to find the correct color
-     * if the color that is being sensed is the correct color set motor to 1.
+     * if the robot is being controlled, use the MotorController to find the correct color
+     * if the color that is being sensed is the correct color set MotorController to 1.
      */
     public void doActions() {
         if(m_isControlled){
-            m_motor.set(m_speedOfMotor);
+            m_MotorController.set(m_speedOfMotorController);
         } else {
             if(Math.abs(m_sensedColor.getRed() - m_targetColor.getRed()) > m_colorTolerance &&
                     Math.abs(m_sensedColor.getBlue() - m_targetColor.getBlue()) > m_colorTolerance &&
                     Math.abs(m_sensedColor.getGreen() - m_targetColor.getGreen()) > m_colorTolerance){
-                m_motor.set(m_autoMotorSpeed);
+                m_MotorController.set(m_autoMotorControllerSpeed);
             }
         }
     }
@@ -58,9 +55,9 @@ public class ControlPanel extends RoboBaseClass {
      * making the robot move
      * @param speed i.e. "I am speed"
      */
-    public void setMotor(double speed) {
+    public void setMotorController(double speed) {
         m_isControlled = true;
-        m_speedOfMotor = speed;
+        m_speedOfMotorController = speed;
     }
 
     /**
