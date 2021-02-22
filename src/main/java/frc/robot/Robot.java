@@ -128,15 +128,15 @@ public class Robot extends TimedRobot {
     if(m_driveControl.getButton(RobotConstants.aimOverrideButton)) {
       m_autoRotate.Run();
     } else {
-//      m_driveTrain.setForward(m_driveControl.getAxis(RobotConstants.strafeAxis));
-//      m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis));
-//      m_driveTrain.setStrafe(m_driveControl.getAxis(RobotConstants.forwardAxis));
-      m_driveTrain.setForward(0);
-      m_driveTrain.setTwist(0);
-      m_driveTrain.setStrafe(0);
+     m_driveTrain.setForward(m_driveControl.getAxis(RobotConstants.forwardAxis));
+     m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis));
+     m_driveTrain.setStrafe(m_driveControl.getAxis(RobotConstants.strafeAxis));
+      // m_driveTrain.setForward(0);
+      // m_driveTrain.setTwist(0);
+      // m_driveTrain.setStrafe(0);
       double speed = m_weaponsControl.getAxis(3);
     }
-      //m_shooter.rotateY(m_weaponsControl.getAxis(RobotConstants.aimAxis));
+    //m_shooter.rotateY(m_weaponsControl.getAxis(RobotConstants.aimAxis));
     //m_shooter.setShoot(m_weaponsControl.getButton(RobotConstants.shootButton)?RobotConstants.shootSpeed:0);
     
     // if(m_weaponsControl.getButtonPressed(RobotConstants.intakeButton)) {
