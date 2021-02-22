@@ -5,8 +5,8 @@ import frc.robot.biblioteca.HuskyColor;
 public class RobotConstants {
     //TalonSRX(motor) Ports
     public static int frontRightPort = 2;
-    public static int frontLeftPort = 3;
-    public static int backRightPort = 1;
+    public static int frontLeftPort = 1;
+    public static int backRightPort = 3;
     public static int backLeftPort = 0;
     //public static int leftMasterPort = 0;
     //public static int rightMasterPort = 3;
@@ -14,9 +14,9 @@ public class RobotConstants {
     public static int shootLeftPort = 0;
     public static int shootRightPort = 1;
     //VictorSPX(motor) Ports
-    public static int intakePort = 0;
-    public static int helixPort = 0;
-    public static int aimPort = 0;
+    public static int intakePort = -1;
+    public static int helixPort = 2;
+    public static int aimPort = 4;
     public static int spinnerPort = 0;
     //public static int leftSlavePort = 1;
     //public static int rightSlavePort = 2;
@@ -26,27 +26,17 @@ public class RobotConstants {
     public static int joystickNumber = 0;
     public static int aimPotentiometerPort = 0;
     //Joystick
-    public static int forwardAxis = 1;
-    public static int twistAxis = 0;
-    public static int strafeAxis = 2;
+    public static double joystickDeadZone = 0.1;//0 to 1
+    public static int forwardAxis = 0;
+    public static int twistAxis = 2;
+    public static int strafeAxis = 1;
     public static int aimAxis = 0;
 
     public static int aimOverrideButton = 1;
     public static int shootButton = 1;
     public static int intakeButton = 2;
     public static int helixButton = 3;
-
-    /*
-    Intake = button2 (toggle)
-    Negative intake = button 5 (hold)
-    Helix = button3 (toggle)
-    Control Spin(x4) = button 4
-    Control move = button 6
-    Control color = blue(9), green(10), red(11), yellow(12)
-
-    */ 
     //Constants
-    public static double joystickDeadZone = 0.1;//0 to 1
     public static double colorTolerance = 0.1;
     public static double aimYOffset = 5;
 

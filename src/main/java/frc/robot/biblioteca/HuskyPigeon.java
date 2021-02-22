@@ -1,9 +1,11 @@
 package frc.robot.biblioteca;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import frc.robot.biblioteca.HuskyVector3D;
 
 public class HuskyPigeon extends Vector3DIn {
-    private PigeonIMU m_pigeon;
+    public PigeonIMU m_pigeon;
+    private HuskyVector3D m_heading;
     public HuskyPigeon(int ID) {
         super();
         m_pigeon = new PigeonIMU(ID);
@@ -12,7 +14,10 @@ public class HuskyPigeon extends Vector3DIn {
     public void gatherInfo() {
         double[] angles = new double[3];
         m_pigeon.getYawPitchRoll(angles);
-        setValue(new HuskyVector3D(angles[0], angles[1], angles[2]));
+        m_heading = new HuskyVector3D(angles[0], angles[1], angles[2]);
+    }
+    public HuskyVector3D getHeading(){
+        return m_heading;
     }
     public void reset() {
         m_pigeon.setYaw(0);

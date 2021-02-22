@@ -10,8 +10,8 @@ public class Output extends Turret {
         super(0, 0, 0, 45, true);
     }
     public void gatherInfo() {
-        setCurrentX(0);
-        setCurrentY(m_potentiometer.getValue());
+        //setCurrentX(0);
+        //setCurrentY(m_potentiometer.getValue());
     }
     public void shoot(double velocity) {
         for (MotorController shootMotor : m_shootMotors) {

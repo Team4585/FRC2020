@@ -26,9 +26,11 @@ public class MecanumDrive extends Drive {
     MecanumDriveOdometry m_odometry;
     PigeonIMU m_gyro;
     Pose2d m_robotPose;
+    boolean positional;
     public MecanumDrive(MotorController frontLeft, MotorController frontRight, MotorController backLeft, MotorController backRight, double wheelDistX, double wheelDistY, double rotDist, int pigeonPort){
         super();
-        //m_gyro = new PigeonIMU(pigeonPort);
+        positional = true;
+        m_gyro = new PigeonIMU(pigeonPort);
         m_frontLeft = frontLeft; 
         m_frontRight = frontRight;
         m_backLeft = backLeft;
@@ -44,6 +46,12 @@ public class MecanumDrive extends Drive {
         m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation
         );
         //m_odometry = new MecanumDriveOdometry(m_kinematics, new Rotation2d(Math.toRadians(m_gyro.getFusedHeading())));
+        m_backLeft.setInverted(true);
+        m_backRight.setInverted(true);
+    }
+    public MecanumDrive(MotorController frontLeft, MotorController frontRight, MotorController backLeft, MotorController backRight){
+        super();
+        positional = false;
         m_frontLeft = frontLeft;
         m_frontRight = frontRight;
         m_backLeft = backLeft;
@@ -60,21 +68,19 @@ public class MecanumDrive extends Drive {
     public void doActions(){
         m_frontLeft.set(this.getSpeed(false, true));
         m_frontRight.set(this.getSpeed(false, false));
-        m_backLeft.set(this.getSpeed(true, false));
+        m_backLeft.set(this.getSpeed(true, false) );
         m_backRight.set(this.getSpeed(true, true));
-    
-        System.out.println("F: " + m_forward + "T: " + m_twist + "S: " + m_strafe);
-        System.out.println(this.getSpeed(true, true));
-        System.out.println(this.getSpeed(false, false));
-        System.out.println(this.getSpeed(true, false));
-        System.out.println(this.getSpeed(false, true));
+        
+        //System.out.println(m_gyro.getFusedHeading());
+        //System.out.println("F: " + m_forward + "T: " + m_twist + "S: " + m_strafe);
+        //System.out.println(m_frontLeft.getTargetSpeed());
         /*Pose2d m_RobotPose = m_odometry.update(
             new Rotation2d(Math.toRadians(m_gyro.getFusedHeading())), 
             new MecanumDriveWheelSpeeds(
-            (m_frontLeft.getRealSpeed() * m_rotDistance * 10) / 4096, 
-            (m_frontRight.getRealSpeed() * m_rotDistance * 10) / 4096,
-            (m_backLeft.getRealSpeed() * m_rotDistance * 10) / 4096,
-            (m_backRight.getRealSpeed() * m_rotDistance * 10) / 4096));*/
+            (m_frontLeft.getRealSpeed() * m_rotDistance) / 4096, 
+            (m_frontRight.getRealSpeed() * m_rotDistance) / 4096,
+            (m_backLeft.getRealSpeed() * m_rotDistance) / 4096,
+            (m_backRight.getRealSpeed() * m_rotDistance) / 4096));*/
     }
     private double getSpeed(boolean isLeft, boolean isLeftGrain){
         double totalSpeed = m_forward;

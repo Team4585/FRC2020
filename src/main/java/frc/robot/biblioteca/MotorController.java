@@ -42,6 +42,8 @@ public class MotorController extends AnalogOutput {
     }
     @Override
     public void doActions(){
-        this.m_following.set(m_speed * -1);
+        if(m_following != null) {
+            this.m_following.set(m_speed * -1);
+        }
     }
 }
