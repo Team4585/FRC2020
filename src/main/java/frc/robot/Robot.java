@@ -29,7 +29,7 @@ import java.io.*;
 //Testing
 
 public class Robot extends TimedRobot {
-  MecanumDrive m_driveTrain;
+  // MecanumDrive m_driveTrain;
   Output m_shooter;
   Intake m_intake;
   ControlPanel m_colorWheel;
@@ -57,6 +57,8 @@ public class Robot extends TimedRobot {
   boolean m_doIntake;
   boolean m_doHelix;
 
+  chassis m_theChassis;
+
   @Override
   public void robotInit() {
     
@@ -64,7 +66,7 @@ public class Robot extends TimedRobot {
     back_left = new HuskyTalon(3);
     front_right = new HuskyTalon(2);
     back_right = new HuskyTalon(4);
-    m_driveTrain = new MecanumDrive(front_left, front_right, back_left, back_right);
+    //m_driveTrain = new MecanumDrive(front_left, front_right, back_left, back_right);
     //m_driveTrain = new Laika();
     // m_shooter = new Deathstar();
     //m_intake = new TractorBeam();
@@ -90,6 +92,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Intake Button", 2);
     SmartDashboard.putNumber("Helix Button", 3);
     SmartDashboard.putNumber("Joystick Deadzones", 0.25);
+
+    m_theChassis = new chassis();
   }
   @Override
   public void robotPeriodic() {
@@ -128,9 +132,11 @@ public class Robot extends TimedRobot {
     if(m_driveControl.getButton(RobotConstants.aimOverrideButton)) {
       m_autoRotate.Run();
     } else {
-     m_driveTrain.setForward(m_driveControl.getAxis(RobotConstants.forwardAxis));
-     m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis));
-     m_driveTrain.setStrafe(m_driveControl.getAxis(RobotConstants.strafeAxis));
+      m_theChassis.setVals(m_driveControl.getAxis(RobotConstants.forwardAxis), m_driveControl.getAxis(RobotConstants.twistAxis), m_driveControl.getAxis(RobotConstants.strafeAxis));
+      m_theChassis.chassisDoActions();
+    //  m_driveTrain.setForward(m_driveControl.getAxis(RobotConstants.forwardAxis));
+    //  m_driveTrain.setTwist(m_driveControl.getAxis(RobotConstants.twistAxis));
+    //  m_driveTrain.setStrafe(m_driveControl.getAxis(RobotConstants.strafeAxis));
       // m_driveTrain.setForward(0);
       // m_driveTrain.setTwist(0);
       // m_driveTrain.setStrafe(0);
