@@ -19,7 +19,7 @@ import frc.robot.biblioteca.LimeLightCamera;
 import frc.robot.biblioteca.RoboBaseClass;
 import frc.robot.biblioteca.autonomous.AutoController;
 import frc.robot.biblioteca.autonomous.AutoTaskLimeLightRotate;
-import frc.robot.biblioteca.basesubsystem.MecanumDrive;
+//import frc.robot.biblioteca.basesubsystem.MecanumDrive;
 import frc.robot.subsystem.ControlPanel;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Output;
@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
   boolean m_doHelix;
 
   chassis m_theChassis;
+  NewJoystick m_theJoystick;
 
   @Override
   public void robotInit() {
@@ -94,6 +95,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Joystick Deadzones", 0.25);
 
     m_theChassis = new chassis();
+    m_theJoystick = new NewJoystick();
   }
   @Override
   public void robotPeriodic() {
