@@ -5,10 +5,15 @@ import frc.robot.biblioteca.HuskyJoystick;
 public class NewJoystick
 {
     HuskyJoystick m_driveControl;
+    double m_forwardAxis = 0.0;
+    double m_twistAxis = 0.0;
+    double m_strafeAxis = 0.0;
+    boolean m_button1 = false;
+    boolean m_button2 = false;
 
     public NewJoystick()
     {
-        
+       
     }
 
     public void newJoystickInit()
@@ -16,11 +21,42 @@ public class NewJoystick
         m_driveControl = new HuskyJoystick(0);
     }
 
+    public void gatherInformation()
+    {
+        m_forwardAxis = m_driveControl.getAxis(RobotConstants.forwardAxis);
+        m_twistAxis = m_driveControl.getAxis(RobotConstants.twistAxis); 
+        m_strafeAxis = m_driveControl.getAxis(RobotConstants.strafeAxis);
+        m_button1 = m_driveControl.getButton(1);
+        m_button2 = m_driveControl.getButton(2);
+    }
+
     public void newJoystickDoActions()
     {
-        m_driveControl.getAxis(RobotConstants.forwardAxis);
-        m_driveControl.getAxis(RobotConstants.twistAxis); 
-        m_driveControl.getAxis(RobotConstants.strafeAxis);
+       
     } 
 
+    public double getForwardAxis()
+    {
+        return m_forwardAxis;
+    }
+
+    public double getTwistAxis()
+    {
+        return m_twistAxis;
+    }
+
+    public double getStrafeAxis()
+    {
+        return m_strafeAxis;
+    }
+
+    public boolean getButton1()
+    {
+        return m_button1;
+    }
+
+    public boolean getButton2()
+    {
+        return m_button2;
+    }
 }
